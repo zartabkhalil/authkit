@@ -9,7 +9,7 @@ export default function auth(req, res, next) {
         if (!authHeader) {
             const error = new Error("Access denied. Token missing")
             error.status = 401
-            next(error)
+            return next(error)
 
         }
 
@@ -22,7 +22,7 @@ export default function auth(req, res, next) {
         if (parts.length !== 2 || parts[0].toLowerCase() !== "bearer") {
             const error = new Error("Invalid token format")
             error.status = 401
-            next(error)
+            return next(error)
 
         }
 

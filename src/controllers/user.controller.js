@@ -15,7 +15,7 @@ export default class UserController {
       if (existingUser) {
         const error = new Error("User already exists")
         error.status = 409
-        next(error)
+        return next(error)
 
       }
 
