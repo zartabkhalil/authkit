@@ -15,4 +15,11 @@ export default class UserValidator {
       body("password").notEmpty().withMessage("Password is required"),
     ];
   }
+
+  static login() {
+    return [
+      body("email").notEmpty().withMessage("Email is required"),
+      body("password").notEmpty().withMessage("Password is required")
+    ]
+  }
 }
