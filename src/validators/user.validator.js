@@ -19,13 +19,11 @@ export default class UserValidator {
   static login() {
     return [
       body("email").notEmpty().withMessage("Email is required"),
-      body("password").notEmpty().withMessage("Password is required")
-    ]
+      body("password").notEmpty().withMessage("Password is required"),
+    ];
   }
   static forgot() {
-    return [
-      body("email").notEmpty().withMessage("Email is required")
-    ]
+    return [body("email").notEmpty().withMessage("Email is required")];
   }
 
   static reset() {
@@ -33,8 +31,12 @@ export default class UserValidator {
       body("email").notEmpty().withMessage("Email is required"),
       body("otp").notEmpty().withMessage("Otp is required"),
       body("newPassword").notEmpty().withMessage("newPassword is required"),
+    ];
+  }
 
-
-    ]
+  static refreshToken() {
+    return [
+      body("refreshToken").notEmpty().withMessage("refreshToken is Required"),
+    ];
   }
 }

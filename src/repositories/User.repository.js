@@ -38,6 +38,18 @@ export default class UserRepository {
     }
   }
 
+  //save access token in db
+  async saveAccessToken(id, token) {
+    try {
+      const user = await UserModel.findById(id);
+      user.refreshToken = token;
+      return await user.save();
+    } catch (error) {
+      console.error("Error while Saving Access Token :", error);
+      throw error;
+    }
+  }
+
   //GETTERS
   async getUserByEmail(email) {
     try {
@@ -65,6 +77,28 @@ export default class UserRepository {
       return await UserModel.findById(id).select("-password");
     } catch (error) {
       console.error("Error while fetching user by id :", error);
+      throw error;
+    }
+  }
+
+  async getUserByToken(refreshToken) {
+    try {
+      return await UserModel.findOne({ refreshToken }).select("-password");
+    } catch (error) {
+      console.error("Error while fetching user by refresh Token :", error);
+      throw error;
+    }
+  }
+
+  //DESTORYER
+  async removeRefreshToken(id) {
+    try {
+      const user = await UserModel.findById(id);
+      user.refreshToken = undefined;
+      await user.save();
+      return user;
+    } catch (error) {
+      console.error("Error while fetching user by refresh Token :", error);
       throw error;
     }
   }

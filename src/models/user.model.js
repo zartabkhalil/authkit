@@ -21,14 +21,16 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    refreshToken: {
+      type: String,
+    },
 
     resetpasswordOTP: {
-      type: String
-
+      type: String,
     },
     resetPasswordOTPExpiry: {
-      type: Date
-    }
+      type: Date,
+    },
   },
   {
     timestamps: true,
