@@ -22,4 +22,19 @@ export default class UserValidator {
       body("password").notEmpty().withMessage("Password is required")
     ]
   }
+  static forgot() {
+    return [
+      body("email").notEmpty().withMessage("Email is required")
+    ]
+  }
+
+  static reset() {
+    return [
+      body("email").notEmpty().withMessage("Email is required"),
+      body("otp").notEmpty().withMessage("Otp is required"),
+      body("newPassword").notEmpty().withMessage("newPassword is required"),
+
+
+    ]
+  }
 }

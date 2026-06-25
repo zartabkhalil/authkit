@@ -3,6 +3,42 @@ import UserModel from "../models/user.model.js";
 export default class UserRepository {
   //get a user
 
+  //SETTERS
+  async createNewUser(email, password, name) {
+    try {
+      const user = await UserModel.create({ email, password, name });
+      return user;
+    } catch (error) {
+      console.error("Error while creating new  user :", error);
+      throw error;
+    }
+  }
+  async saveOtp(id, newOtp, otpExpiry) {
+    try {
+      const user = await UserModel.findById(id);
+      user.resetpasswordOTP = newOtp;
+      user.resetPasswordOTPExpiry = otpExpiry;
+      return await user.save();
+    } catch (error) {
+      console.error("Error while Saving Otp :", error);
+      throw error;
+    }
+  }
+
+  async resetPassword(id, newPassword) {
+    try {
+      const user = await UserModel.findById(id);
+      user.password = newPassword;
+      user.resetPasswordOTP = undefined;
+      user.resetPasswordOTPExpiry = undefined;
+      return await user.save();
+    } catch (error) {
+      console.error("Error while Saving New Password :", error);
+      throw error;
+    }
+  }
+
+  //GETTERS
   async getUserByEmail(email) {
     try {
       const user = await UserModel.findOne({ email }).select("-password");
@@ -13,12 +49,13 @@ export default class UserRepository {
     }
   }
 
-  async createNewUser(email, password, name) {
+  // Used only for auth flows (login, forgot/reset password) — includes hashed password
+  async getUserByEmailWithPassword(email) {
     try {
-      const user = await UserModel.create({ email, password, name });
+      const user = await UserModel.findOne({ email });
       return user;
     } catch (error) {
-      console.error("Error while creating new  user :", error);
+      console.error("Error fetching user By email (with password):", error);
       throw error;
     }
   }
@@ -26,9 +63,8 @@ export default class UserRepository {
   async getUserById(id) {
     try {
       return await UserModel.findById(id).select("-password");
-    }
-    catch (error) {
-      console.error("Error while fetching user by id :", error).select("-password");
+    } catch (error) {
+      console.error("Error while fetching user by id :", error);
       throw error;
     }
   }

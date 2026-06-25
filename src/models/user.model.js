@@ -21,6 +21,14 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+
+    resetpasswordOTP: {
+      type: String
+
+    },
+    resetPasswordOTPExpiry: {
+      type: Date
+    }
   },
   {
     timestamps: true,
