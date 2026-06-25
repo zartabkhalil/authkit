@@ -53,7 +53,7 @@ export default class UserRepository {
   //GETTERS
   async getUserByEmail(email) {
     try {
-      const user = await UserModel.findOne({ email }).select("-password");
+      const user = await UserModel.findOne({ email });
       return user;
     } catch (error) {
       console.error("Error fetching user By email:", error);
@@ -74,7 +74,7 @@ export default class UserRepository {
 
   async getUserById(id) {
     try {
-      return await UserModel.findById(id).select("-password");
+      return await UserModel.findById(id);
     } catch (error) {
       console.error("Error while fetching user by id :", error);
       throw error;
@@ -83,7 +83,7 @@ export default class UserRepository {
 
   async getUserByToken(refreshToken) {
     try {
-      return await UserModel.findOne({ refreshToken }).select("-password");
+      return await UserModel.findOne({ refreshToken });
     } catch (error) {
       console.error("Error while fetching user by refresh Token :", error);
       throw error;

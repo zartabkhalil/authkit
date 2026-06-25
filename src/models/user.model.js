@@ -23,13 +23,16 @@ const UserSchema = new mongoose.Schema(
     },
     refreshToken: {
       type: String,
+      select: false,
     },
 
     resetpasswordOTP: {
       type: String,
+      select: false,
     },
     resetPasswordOTPExpiry: {
       type: Date,
+      select: false,
     },
   },
   {
