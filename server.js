@@ -1,7 +1,6 @@
 import cors from "cors";
 import "dotenv/config"; // MUST be first — loads .env before any other module runs
 import express from "express";
-import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import connectDb from "./src/config/db.js";
 import errorHandler from "./src/middlewares/error.middleware.js";
@@ -12,7 +11,7 @@ connectDb();
 const PORT = process.env.PORT || 8086;
 app.use(cors());
 app.use(helmet());
-app.use(mongoSanitize());
+
 app.use(express.json());
 app.set("trust proxy", 1);
 

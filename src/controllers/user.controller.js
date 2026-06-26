@@ -110,7 +110,7 @@ export default class UserController {
       await this.userRep.saveOtp(user._id, otp, otpExpiry);
 
       return res.status(200).json({
-        message: `OTP sent successfully ${otp}`,
+        message: `OTP sent successfully `,
       });
       //send email
       await this.emailService.sendMail(
@@ -123,10 +123,6 @@ export default class UserController {
         <p>This OTP expires in 10 minutes.</p>
         `,
       );
-
-      return res.status(200).json({
-        message: "OTP sent successfully",
-      });
     } catch (error) {
       next(error);
     }
